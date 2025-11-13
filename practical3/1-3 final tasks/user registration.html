@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+</head>
+<body>
+    <h2>User Registration</h2>
+
+    <form id="regForm">
+        <input type="text" id="name" placeholder="Enter Name"><br><br>
+        <input type="number" id="age" placeholder="Enter Age"><br><br>
+        <input type="text" id="email" placeholder="Enter Email"><br><br>
+        <button type="submit">Register</button>
+    </form>
+
+    <h3 id="message"></h3>
+
+    <script>
+        const form = document.getElementById("regForm");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const user = {
+                name: document.getElementById("name").value,
+                age: document.getElementById("age").value,
+                email: document.getElementById("email").value
+            };
+
+         
+            const { name, age, email } = user;
+
+          
+            if (name.trim() === "") {
+                message.textContent = "Name cannot be empty.";
+            } 
+            else if (age < 13 || age > 120) {
+                message.textContent = "Age must be between 13 and 120.";
+            } 
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                message.textContent = "Invalid email format.";
+            } 
+            else {
+                message.textContent = `Welcome, ${name} (Age: ${age}). Your email ${email} has been registered successfully!`;
+            }
+        });
+    </script>
+</body>
+</html>

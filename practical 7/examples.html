@@ -1,0 +1,47 @@
+<h1 id="main-title">Hello</h1>
+<script>
+document.getElementById('main-title').textContent = 'Welcome to DOM!';
+</script>
+
+<ul id="task-list"></ul>
+<script>
+const li = document.createElement('li');   // makes <li>
+li.textContent = 'Buy groceries';          // add text
+document.getElementById('task-list').appendChild(li);
+</script>
+
+
+<p class="note">This is a note.</p>
+<script>
+const note = document.querySelector('.note');  // finds first .note
+note.style.color = 'blue';                      // inline style applied
+</script>
+
+<button onclick="addTask()">Add Task</button>
+<ul id="list"></ul>
+<script>
+function addTask() {
+  const li = document.createElement('li');
+  li.textContent = 'New Task';
+  document.getElementById('list').appendChild(li);
+}
+</script>
+
+<ul id="myList">
+  <li id="item1">Item 1</li>
+</ul>
+<script>
+const item = document.getElementById('item1');
+item.parentNode.removeChild(item);
+</script>
+
+<ul id="tasks">
+  <li onclick="this.classList.toggle('done')">Click me to mark done</li>
+</ul>
+<style>
+.done {
+  text-decoration: line-through;
+}
+</style>
+
+

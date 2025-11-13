@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reverse Array (Beginner)</title>
+    <style>
+        *{
+            font-family: Arial, sans-serif;
+            color: #f8f4f4;
+            text-align: center;
+            background-color: #140101;
+        }
+        </style>
+</head>
+<body>
+
+<h2>Reversed Array:</h2>
+
+<script>
+  userInput = prompt("Enter numbers separated by commas (e.g. 1,2,3):");
+  let numbers = userInput.split(",").map(Number);  
+
+  numbers.reverse();  
+
+  document.write("Reversed Array: [" + numbers.join(", ") + "]");
+</script>
+
+</body>
+</html>

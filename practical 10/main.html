@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSON Handling with Fetch and jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f5f7fa;
+    }
+
+    h2, h3 {
+      color: #333;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 70%;
+      margin-bottom: 25px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    
+    .highlight {
+      background-color: #b2f2bb !important; 
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Student Records (Using Fetch and jQuery AJAX)</h2>
+
+  <h3>Data from Fetch()</h3>
+  <p id="loading">Loading data using Fetch... Please wait.</p>
+  <table id="fetchTable"></table>
+
+  <h3>Data from $.getJSON()</h3>
+  <table id="jqueryTable"></table>
+
+  <script src="script.js"></script>
+</body>
+</html>

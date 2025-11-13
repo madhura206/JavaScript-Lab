@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Ages Array</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: white;
+    }
+    .box {
+      background: white;
+      padding: 15px;
+      margin: 15px auto;
+      border-radius: 10px;
+      max-width: 500px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    
+  </style>
+</head>
+<body>
+  <h1>📊 Student Ages Array Operations</h1>
+
+  <div id="output"></div>
+
+  <script>
+   
+    let ages = [18, 20, 21, 19];
+    let output = document.getElementById("output");
+
+    function print(message) {
+      const div = document.createElement("div");
+      div.className = "box";
+      div.innerHTML = message;
+      output.appendChild(div);
+    }
+
+    print("<strong>Initial Ages:</strong> " + ages);
+
+    ages.push(22);
+    print("<strong>After push (added 22):</strong> " + ages);
+
+    ages.pop();
+    print("<strong>After pop (removed last age):</strong> " + ages);
+
+    print("<strong>Array length:</strong> " + ages.length);
+
+    const doubleAges = ages.map(age => age * 2);
+    print("<strong>Double of Ages:</strong> " + doubleAges);
+
+    const cubeAges = ages.map(age => age ** 3);
+    print("<strong>Cube of Ages:</strong> " + cubeAges);
+  </script>
+</body>
+</html>

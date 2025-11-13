@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sum of User Input Array</title>
+  <style>
+    *{
+        font-family: Arial, sans-serif;
+        color: #f8f4f4;
+        text-align: center;
+        background-color: #140101;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Sum of Numbers in Your Array:</h2>
+
+<script>
+ 
+  let input = prompt("Enter numbers: ");
+
+  let numbers = input.split(",").map(Number);
+
+  let sum = 0;
+  let i = 0;
+  while (i < numbers.length) {
+    sum += numbers[i];
+    i++;
+  }
+
+  document.write("Array: " + numbers.join(", ") + "<br>");
+  document.write("Sum: " + sum);
+</script>
+
+</body>
+</html>

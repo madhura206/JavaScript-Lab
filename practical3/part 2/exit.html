@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multiplication Tables 1 to 10</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .table-box {
+      width: 140px;
+      background-color: #f2f2f2;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+    .table-box h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #333;
+    }
+    .table-box p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Multiplication Tables (1 to 10)</h2>
+
+<div class="container" id="tables-container"></div>
+
+<script>
+  const container = document.getElementById("tables-container");
+
+  for (let i = 1; i <= 10; i++) {
+    let box = document.createElement("div");
+    box.className = "table-box";
+
+    let heading = document.createElement("h3");
+    heading.textContent = "Table of " + i;
+    box.appendChild(heading);
+
+    for (let j = 1; j <= 10; j++) {
+      let row = document.createElement("p");
+      row.textContent = `${i} × ${j} = ${i * j}`;
+      box.appendChild(row);
+    }
+
+    container.appendChild(box);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Functions</title>
+</head>
+<body>
+  <script>
+   
+    function getThickerBook(pages1, pages2) {
+      return pages1 > pages2 ? pages1 : pages2;
+    }
+
+    const bookFactorial = function(num) {
+      let result = 1;
+      for (let i = 1; i <= num; i++) {
+        result *= i;
+      }
+      return result;
+    };
+
+    let pages1 = parseInt(prompt("Enter pages of first book: "));
+    let pages2 = parseInt(prompt("Enter pages of second book: "));
+    alert("Thicker book has pages: " + getThickerBook(pages1, pages2));
+
+    let num = parseInt(prompt("Enter a number to find factorial: "));
+    alert("Factorial is: " + bookFactorial(num));
+  </script>
+</body>
+</html>

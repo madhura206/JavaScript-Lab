@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit By 0</title>
+    <style>
+        * {
+            font-family: Arial, sans-serif;
+            color: #f8f4f4;
+            text-align: center;
+            background-color: #140101;
+        }
+    </style>
+</head>
+<body>
+    <script>
+
+    number = parseInt(prompt("Enter a number (0 to exit):"));
+    while (number !== 0) {
+        if (isNaN(number)) {
+            alert("Please enter a valid number.");
+        } else {
+            document.write("You entered: " + number + "<br>");
+        }
+        number = parseInt(prompt("Enter a number (0 to exit):"));
+    }
+</script>
+</body>
+</html>

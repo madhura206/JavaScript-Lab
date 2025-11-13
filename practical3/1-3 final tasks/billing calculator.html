@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Billing Calculator</title>
+</head>
+<body>
+    <h2>Billing Calculator</h2>
+    <form id="billingForm">
+        <input type="text" id="itemName" placeholder="Item Name" required><br><br>
+        <input type="number" id="quantity" placeholder="Quantity"><br><br>
+        <input type="number" id="price" placeholder="Price per item ₹" required><br><br>
+        <button type="submit">Calculate</button>
+    </form>
+    <h3 id="result"></h3>
+
+    <script>
+        const form = document.getElementById("billingForm");
+        const result = document.getElementById("result");
+
+       
+        const calculate = (item, qty = 1, price) => 
+            `You ordered ${qty} ${item}(s) at ₹${price} each. Total: ₹${qty * price}.`;
+
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            const { value: item } = document.getElementById("itemName");
+            const { value: q } = document.getElementById("quantity");
+            const { value: p } = document.getElementById("price");
+
+            result.innerHTML = calculate(item, q ? +q : undefined, +p);
+        });
+    </script>
+</body>
+</html>

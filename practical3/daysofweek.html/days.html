@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Days Of Week</title>
+</head>
+<body>
+    <style>
+        * {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: lightblue;
+        }
+    </style>
+    <script>
+        day = prompt("Enter a day of the week (1-7):");
+        let message;
+        document.write("<p>You entered: " + day + "</p>");
+
+        switch (day) {
+            case "monday":
+                message = "Start of the work week!";
+                break;
+            case "tuesday":
+                message = "Keep going, it's only Tuesday.";
+                break;
+            case "wednesday":
+                message = "Halfway through the week!";
+                break;
+            case "thursday":
+                message = "Almost the weekend!";
+                break;
+            case "friday":
+                message = "Weekend is near!";
+                break;
+            case "saturday":
+                message = "Enjoy your Saturday!";
+                break;
+            case "sunday":
+                message = "Relax, it's Sunday!";
+                break;
+            default:
+                message = "Invalid day entered.";
+        }
+        document.write("<h3>" + message + "</h3>");
+    </script>
+
+</body>
+
+</html>

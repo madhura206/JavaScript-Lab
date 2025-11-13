@@ -1,0 +1,12 @@
+function mixColors(colors1, colors2) {
+  
+  const palette = [...colors1, ...colors2];
+
+  const [first, ...rest] = palette;
+  const [last, ...middleReverse] = rest.reverse();
+  const middle = middleReverse.reverse();
+
+  console.log(`Main colors: ${first} and ${last}. Others in the palette: ${middle.join(", ")}.`);
+}
+
+mixColors(["red", "green"], ["blue", "yellow"]);

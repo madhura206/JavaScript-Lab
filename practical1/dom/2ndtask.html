@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Button from Script</title>
+</head>
+<body>
+
+  <div id="container"></div>
+
+  <script>
+   
+    let button = document.createElement("button");
+
+    button.innerHTML = "Click Me";
+
+    button.onclick = function() {
+      let name = prompt("Enter your name:");
+      alert("Welcome, " + name);
+      console.log("Student Name: " + name);
+    };
+
+    document.getElementById("container").appendChild(button);
+  </script>
+
+</body>
+</html>

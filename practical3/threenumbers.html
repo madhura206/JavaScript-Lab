@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Compare Three Numbers</title>
+</head>
+<body>
+    <style>
+        * {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: blueviolet;
+
+        }
+    </style>
+    <h2>Compare Three Numbers</h2>
+    <p>Enter three numbers to find the greatest among them.</p>
+    <script>
+        let a = parseInt(prompt("Enter first number:"));
+        let b = parseInt(prompt("Enter second number:"));
+        let c = parseInt(prompt("Enter third number:"));
+
+        document.write("<p>First number: " + a + "</p>");
+        document.write("<p>Second number: " + b + "</p>");
+        document.write("<p>Third number: " + c + "</p>");
+
+        let result;
+        if (a >= b && a >= c) {
+            result = a + " is the greatest.";
+        } else if (b >= a && b >= c) {
+            result = b + " is the greatest.";
+        } else {
+            result = c + " is the greatest.";
+        }
+
+        document.write("<h3>" + result + "</h3>");
+    </script>
+
+</body>
+
+</html>

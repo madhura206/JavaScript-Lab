@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gym Admission Form</title>
+
+  <style>
+    /* ====== Basic Page Styling ====== */
+    body {
+      font-family: sans-serif;
+      background: #eef2f5;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* ====== Form Container ====== */
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    /* ====== Input Fields ====== */
+    .field {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: 0.2s;
+    }
+
+    input.valid {
+      border-color: green;
+    }
+
+    input.invalid {
+      border-color: red;
+    }
+
+    span.msg {
+      font-size: 12px;
+      color: red;
+    }
+
+    /* ====== Buttons ====== */
+    button {
+      padding: 6px 12px;
+      margin-right: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ====== Success Message ====== */
+    #successMsg {
+      color: green;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="container">
+    <h2>Gym Admission Form</h2>
+
+    <form id="form" novalidate>
+      <!-- Name -->
+      <div class="field">
+        <label>Name</label>
+        <input type="text" id="name" required />
+        <span class="msg" id="nameMsg"></span>
+      </div>
+
+      <!-- Email -->
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="email" required />
+        <span class="msg" id="emailMsg"></span>
+      </div>
+
+      <!-- Age -->
+      <div class="field">
+        <label>Age</label>
+        <input type="number" id="age" min="18" max="60" required />
+        <span class="msg" id="ageMsg"></span>
+      </div>
+
+      <!-- Gender -->
+      <div class="field">
+        <label>Gender</label>
+        <label><input type="radio" name="gender" value="male" /> Male</label>
+        <label><input type="radio" name="gender" value="female" /> Female</label>
+        <span class="msg" id="genderMsg"></span>
+      </div>
+
+      <!-- Membership -->
+      <div class="field">
+        <label>Membership</label>
+        <select id="membership" required>
+          <option value="">Select</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+        <span class="msg" id="membershipMsg"></span>
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="password" required />
+        <span class="msg" id="passMsg"></span>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field">
+        <label>Confirm Password</label>
+        <input type="password" id="confirm" required />
+        <span class="msg" id="confirmMsg"></span>
+      </div>
+
+      <!-- Phone -->
+      <div class="field">
+        <label>Phone</label>
+        <input type="text" id="phone" required />
+        <span class="msg" id="phoneMsg"></span>
+      </div>
+
+      <!-- DOB -->
+      <div class="field">
+        <label>Date of Birth</label>
+        <input type="date" id="dob" required />
+        <span class="msg" id="dobMsg"></span>
+      </div>
+
+      <!-- Profile Photo -->
+      <div class="field">
+        <label>Profile Photo</label>
+        <input type="file" id="photo" accept="image/png, image/jpeg" required />
+        <span class="msg" id="photoMsg"></span>
+      </div>
+
+      <!-- Terms and Conditions -->
+      <div class="field">
+        <label>
+          <input type="checkbox" id="terms" required /> I agree to terms
+        </label>
+        <span class="msg" id="termsMsg"></span>
+      </div>
+
+      <!-- Buttons -->
+      <button type="submit" id="submitBtn" disabled>Submit</button>
+      <button type="reset">Reset</button>
+
+      <!-- Success Message -->
+      <div id="successMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("form");
+    const container = document.getElementById("container");
+    const submitBtn = document.getElementById("submitBtn");
+    const successMsg = document.getElementById("successMsg");
+
+    const nameField = document.getElementById("name");
+    const emailField = document.getElementById("email");
+    const ageField = document.getElementById("age");
+    const genderFields = form.elements["gender"];
+    const membershipField = document.getElementById("membership");
+    const passwordField = document.getElementById("password");
+    const confirmField = document.getElementById("confirm");
+    const phoneField = document.getElementById("phone");
+    const dobField = document.getElementById("dob");
+    const photoField = document.getElementById("photo");
+    const termsField = document.getElementById("terms");
+
+    const msgs = {
+      name: document.getElementById("nameMsg"),
+      email: document.getElementById("emailMsg"),
+      age: document.getElementById("ageMsg"),
+      gender: document.getElementById("genderMsg"),
+      membership: document.getElementById("membershipMsg"),
+      pass: document.getElementById("passMsg"),
+      confirm: document.getElementById("confirmMsg"),
+      phone: document.getElementById("phoneMsg"),
+      dob: document.getElementById("dobMsg"),
+      photo: document.getElementById("photoMsg"),
+      terms: document.getElementById("termsMsg"),
+    };
+
+    function validate() {
+      let valid = true;
+
+      if (nameField.value.trim().length < 3) {
+        msgs.name.textContent = "Name must be at least 3 letters";
+        valid = false;
+      } else msgs.name.textContent = "";
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(emailField.value)) {
+        msgs.email.textContent = "Invalid email format";
+        valid = false;
+      } else msgs.email.textContent = "";
+
+      if (ageField.value < 18 || ageField.value > 60) {
+        msgs.age.textContent = "Age must be between 18 and 60";
+        valid = false;
+      } else msgs.age.textContent = "";
+
+      if (!Array.from(genderFields).some(r => r.checked)) {
+        msgs.gender.textContent = "Please select your gender";
+        valid = false;
+      } else msgs.gender.textContent = "";
+
+      if (!membershipField.value) {
+        msgs.membership.textContent = "Select a membership type";
+        valid = false;
+      } else msgs.membership.textContent = "";
+
+      if (passwordField.value.length < 6) {
+        msgs.pass.textContent = "Password must be at least 6 characters";
+        valid = false;
+      } else msgs.pass.textContent = "";
+
+      if (passwordField.value !== confirmField.value) {
+        msgs.confirm.textContent = "Passwords do not match";
+        valid = false;
+      } else msgs.confirm.textContent = "";
+
+      if (!/^\d{10}$/.test(phoneField.value)) {
+        msgs.phone.textContent = "Enter a 10-digit phone number";
+        valid = false;
+      } else msgs.phone.textContent = "";
+
+      if (new Date(dobField.value) > new Date()) {
+        msgs.dob.textContent = "Invalid date of birth";
+        valid = false;
+      } else msgs.dob.textContent = "";
+
+      if (photoField.files.length === 0) {
+        msgs.photo.textContent = "Please upload a photo";
+        valid = false;
+      } else msgs.photo.textContent = "";
+
+      if (!termsField.checked) {
+        msgs.terms.textContent = "You must accept the terms";
+        valid = false;
+      } else msgs.terms.textContent = "";
+
+      submitBtn.disabled = !valid;
+      return valid;
+    }
+
+    const fields = [
+      nameField,
+      emailField,
+      ageField,
+      membershipField,
+      passwordField,
+      confirmField,
+      phoneField,
+      dobField,
+      photoField,
+      termsField,
+    ];
+
+    fields.forEach(f => f.addEventListener("input", validate));
+    Array.from(genderFields).forEach(r => r.addEventListener("change", validate));
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (validate()) {
+        successMsg.textContent = "Form submitted successfully!";
+        container.style.boxShadow = "0 0 15px green";
+      } else {
+        container.style.boxShadow = "0 0 15px red";
+      }
+    });
+
+    form.addEventListener("reset", () => {
+      Object.values(msgs).forEach(msg => (msg.textContent = ""));
+      submitBtn.disabled = true;
+      successMsg.textContent = "";
+      container.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
+    });
+  </script>
+</body>
+</html>

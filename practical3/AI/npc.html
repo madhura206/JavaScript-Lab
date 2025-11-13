@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPC</title>
+</head>
+<style>
+    * {
+        color: brown;
+        text-align: center;
+        box-sizing: border-box;
+    }
+</style>
+
+<body>
+    <h2>NPC Interaction</h2>
+    <script>
+
+
+        health = parseInt(prompt("Enter your health score (0-100):"));
+        reputation = parseInt(prompt("Enter your reputation score (-50 to 50):"));
+        inventory = prompt("Enter your inventory items (comma-separated):").toLowerCase().split(",");
+        let message = "";
+
+        if (health >= 80) {
+            let attack_npc = prompt("Do you want to attack the NPC? (yes/no)");
+            if (attack_npc.toLowerCase() === "yes") {
+                message = "You attacked the NPC! Be careful with your actions.";
+            } else {
+                message = "You chose not to attack the NPC. Good choice!";
+            }
+        }
+        else if (health < 30 && reputation > 30) {
+            message = "You are in a critical state! Consider healing.";
+        } else if (reputation >= -45 && inventory == "sword" || inventory == "shield" || 
+        inventory == "magic ring") {
+            message = "You are doing okay, but you might want to work on your reputation.";
+
+        } else {
+            message = "Your status is unclear. Please check your health and reputation.";
+        }
+
+
+        document.write("<p>NPC says: " + message + "</p>");
+    </script>
+
+</body>
+
+</html>

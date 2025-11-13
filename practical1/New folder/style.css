@@ -1,0 +1,260 @@
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #dbe6f6, #c5796d);
+  color: #003366;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* === Navigation Bar === */
+.navbar {
+  width: 100%;
+  background-color: #003366;
+  padding: 15px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  color: #ffffff;
+}
+
+.navbar-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.home-link {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #0059b3;
+  padding: 8px 15px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.home-link:hover {
+  background-color: #007bff;
+}
+
+/* Offset the body for navbar */
+body {
+  padding-top: 80px;
+}
+
+
+/* Headings */
+h1{
+  font-size: 2.5rem;
+  color: #002244;
+  text-shadow: 1px 1px 2px #ccc;
+  margin-bottom: 20px;
+}
+
+/* Welcome message text */
+#welcome-message {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  color: #222;
+  background: #ffffffcc;
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Links styled as buttons */
+a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #004080;
+  padding: 12px 25px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+  background-color: #0059b3;
+  transform: scale(1.05);
+}
+
+
+/* Responsive enhancements */
+@media (max-width: 600px) {
+  h1, h2 {
+    font-size: 2rem;
+  }
+
+  #welcome-message, #info-container p {
+    font-size: 1rem;
+  }
+
+  a {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
+
+#student-search {
+  padding: 10px;
+  width: 280px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+#student-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+#student-list li {
+  background-color: #e6f0ff;
+  margin: 6px auto;
+  padding: 10px 15px;
+  width: 300px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#student-list li:hover {
+  background-color: #cce0ff;
+}
+
+
+input[type="text"] {
+  padding: 10px;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  margin-top: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  background-color: #004080;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0059b3;
+}
+/* Container Styles */
+.container {
+  max-width: 800px;
+  margin: auto;
+  background-color: #ffffffdd;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-top: 50px;
+  text-align: center;
+}
+
+/* Headings */
+h2 {
+  font-size: 2.2rem;
+  color: #003366;
+  margin-bottom: 20px;
+}
+
+/* Welcome Text */
+#info-container p {
+  font-size: 18px;
+  color: #222;
+  background: #f7faff;
+  padding: 15px 20px;
+  border-left: 4px solid #00509e;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* Search Section */
+#search-section label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #003366;
+}
+
+#student-search {
+  margin-top: 12px;
+  padding: 12px;
+  font-size: 16px;
+  width: 300px;
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline-color: #00509e;
+  margin-bottom: 20px;
+}
+
+/* Student List Styles */
+#student-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#student-list li {
+  background-color: #e8f1ff;
+  padding: 12px 20px;
+  margin: 8px auto;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #003366;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+#student-list li:hover {
+  background-color: #d0e7ff;
+  transform: scale(1.02);
+}
+
+/* No result styling */
+#student-list li:not(:hover):not(:active):empty {
+  color: red;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 25px 15px;
+  }
+
+  #student-search {
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+}
+
+

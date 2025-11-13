@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Validate Email Address</title>
+</head>
+<body>
+  <h2>Task 3: Validate Email Address</h2>
+
+  <p><strong>Result:</strong> <span id="result"></span></p>
+
+  <script>
+    let email = prompt("Enter your email address:");
+    let isValid = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email);
+    document.getElementById("result").innerText = email + " → " + (isValid ? "Valid Email" : "Invalid Email");
+  </script>
+</body>
+</html>

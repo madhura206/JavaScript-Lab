@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Smart Job Application Analyzer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      textarea {
+        width: 100%;
+        height: 150px;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-family: monospace;
+        resize: vertical;
+      }
+      pre {
+        background: #eee;
+        padding: 10px;
+        border-radius: 6px;
+        overflow: auto;
+      }
+      button {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 6px;
+        background: #007bff;
+        color: #fff;
+        cursor: pointer;
+      }
+      .samples {
+        margin-top: 10px;
+      }
+      .samples button {
+        margin-right: 5px;
+        background: #28a745;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Smart Job Application Analyzer</h1>
+    <div class="container">
+      <label for="input">Raw Application Text:</label>
+      <textarea id="input"></textarea>
+
+      <div class="samples">
+        <label>Load Sample:</label>
+        <button data-sample="1">Sample 1</button>
+        <button data-sample="2">Sample 2</button>
+        <button data-sample="3">Sample 3</button>
+        <button data-sample="4">Sample 4</button>
+      </div>
+
+      <button id="analyze">Analyze</button>
+
+      <label for="output">Parsed Output:</label>
+      <pre id="output">{ }</pre>
+    </div>
+
+    <script>
+      const samples = {
+        1: `Applicant: maRy annE thomPSON\nPrimary Email: mary.thompson@GMAIL.com\nAlternate Email: thompson.mary@work.co.in\nContact: +91-9876543210\nSkills: Java , HTML/CSS , ReactJS , Node.js , SQL\nCover: I am applying for the role of Full Stack Developer!!\nExpected Salary: $ 75,000 per annum\nTags: #FullStack #Developer #Java #ReactJS #2025Goals`,
+        2: `Applicant: DaNIEL RoBERTsOn\nPrimary Email: daniel.rob@company.com\nAlternate Email: drobertson@mail.org dan.rob.personal@GMAIL.COM\nContact: +91-1234567890\nSkills: Python, Django , Machine Learning,Data Science, AI\nExpected Salary: $120,500 per year\nNote: Please reply only to dan.rob.personal@gmail.com\nTags: #AI #DataScience #Python #2025Career`,
+        3: `Applicant: soPhia WILSON\nPrimary Email: sophia.wilson@MAIL.com\nContact: +44-7896541230\nSkills: C, C++ , Java , JavaScript , React , Angular\nCover: Looking forward to joining your team...\nExpected Salary: 95000 INR\nExtra Emails: s.wilson@backup.co.uk sophia_alt@work.com\nTags: #Developer #Engineer #Cplusplus #React #Angular #NewJob`,
+        4: `Random Line: Ignore this text completely\nApplicant: keVin O'BRIEN\nPrimary Email: kevin.obrien@MAIL.COM\nAlternate Email: obrien.kevin@dev.org\nContact: +91-7891234567\nSkills: GoLang , Rust, JavaScript , TypeScript, Node.js\nCover: I am extremely interested in this--role!!!\nExpected Salary: USD 88,750\nTags: #GoLang #Rust #JavaScript #TypeScript #Node #CoderLife`,
+      };
+
+      function titleCaseWord(word) {
+        if (!word) return word;
+        let w = word.toLowerCase();
+        w = w.replace(/(^|')([a-z])/g, (m, p, ch) => p + ch.toUpperCase());
+        return w;
+      }
+      function formatName(rawText) {
+        const m = rawText.match(/Applicant\s*:\s*([^\n]+)/i);
+        if (!m) return "";
+        const name = m[1].trim().replace(/\s+/g, " ");
+        return name.split(/\s+/).map(titleCaseWord).join(" ");
+      }
+      function extractEmails(rawText) {
+        const emails = (
+          rawText.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/g) ||
+          []
+        ).map((e) => e.toLowerCase());
+        const primaryLabel = rawText.match(
+          /Primary\s+Email\s*:\s*([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/i
+        );
+        let primary = primaryLabel? primaryLabel[1].toLowerCase(): emails[0] || "";
+        const others = emails.filter((e) => e !== primary);
+        return { primaryEmail: primary, altEmails: others };
+      }
+      function extractPhone(rawText) {
+        const m = rawText.match(/\+(\d{1,3})-(\d{7,15})/);
+        if (!m) return "Invalid phone number";
+        const number = m[2];
+        if (!/^[6-9]/.test(number)) return "Invalid phone number";
+        return `+${m[1]}-${number}`;
+      }
+      function extractSkills(rawText) {
+        const m = rawText.match(/Skills\s*:\s*([^\n]+)/i);
+        if (!m) return [];
+        return m[1]
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0);
+      }
+      function extractHashtags(rawText) {
+        return rawText.match(/#[A-Za-z0-9_]+/g) || [];
+      }
+      function extractSalary(rawText) {
+        const m =
+          rawText.match(/(Expected\s+Salary|Salary)\s*:\s*([^\n]+)/i) ||
+          rawText.match(/(USD|INR|\$)\s*([0-9,]+)/i);
+        let str = "";
+        if (m) str = m[2] || m[1] || "";
+        else {
+          const f = rawText.match(
+            /\b[0-9]{2,3}(?:,[0-9]{3})+\b|\b[0-9]{5,6}\b/g
+          );
+          str = f ? f[0] : "";
+        }
+        const digits = (str || "").replace(/[^0-9]/g, "");
+        return digits ? parseInt(digits, 10) : 0;
+      }
+      function wordCount(rawText) {
+        const toks = rawText
+          .trim()
+          .split(/\s+/)
+          .filter((t) => /[A-Za-z0-9#@']/.test(t));
+        return toks.length;
+      }
+      function vowelCount(rawText) {
+        const v = rawText.match(/[aeiou]/gi);
+        return v ? v.length : 0;
+      }
+      function parseApplication(text) {
+        return {
+          applicant: formatName(text),
+          ...extractEmails(text),
+          phone: extractPhone(text),
+          skills: extractSkills(text),
+          hashtags: extractHashtags(text),
+          salary: extractSalary(text),
+          wordCount: wordCount(text),
+          vowelCount: vowelCount(text),
+        };
+      }
+
+      const input = document.getElementById("input");
+      const output = document.getElementById("output");
+
+      document.querySelectorAll(".samples button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.sample;
+          input.value = samples[key];
+          const result = parseApplication(samples[key]);
+          output.textContent = JSON.stringify(result, null, 2);
+        });
+      });
+
+      document.getElementById("analyze").addEventListener("click", () => {
+        const text = input.value || "";
+        const result = parseApplication(text);
+        output.textContent = JSON.stringify(result, null, 2);
+      });
+
+      document.querySelector('.samples button[data-sample="1"]').click();
+    </script>
+  </body>
+</html>

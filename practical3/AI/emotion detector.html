@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Easy AI Emotion Detector</title>
+</head>
+<style>
+  * {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+  }
+  h2, p {
+    color: #0a360c;
+   
+  }
+</style>
+
+<body>
+  <h2>AI Emotion Detector</h2>
+
+  <script>
+    let score = parseInt(prompt("Enter your feeling score (-10 to 10):"));
+    let mood = prompt("Enter a keyword (e.g., tired, excited, confused):");
+
+    let message = "";
+
+    if (score == 10 && mood === "excited") {
+      message = "You sound super happy! That's awesome!";
+
+    } else if (5 < score <= 10 && mood === "confused") {
+      message = "It’s okay to be confused. Let’s figure it out together.";
+
+    } else if (0 < score <= 5 && mood === "not sure") {
+      message = "I'm not sure how you're feeling. Can you tell me more?";
+
+    } else if (0 <= score < -10 && mood === "tired") {
+      message = "You must be really exhausted. Take some rest.";
+    }
+    else {
+      message = "I'm not sure how to interpret that. Can you try again?";
+    }
+
+
+      document.write("<p>AI says: " + message + "</p>");
+  </script>
+</body>
+
+</html>

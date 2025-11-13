@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prime Shelf Checker</title>
+</head>
+<body>
+  <h2>Prime Number Checker (Shelf)</h2>
+
+  <script>
+    
+    const isPrimeShelf = (num) => {
+      try {
+        if (isNaN(num) || num === null || num === "") {
+          throw new Error("Invalid input! Please enter a number.");
+        }
+        num = Number(num);
+
+        if (num < 2) {
+          return false;
+        }
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+          if (num % i === 0) {
+            return false;
+          }
+        }
+        return true;
+      } catch (error) {
+        return error.message;
+      }
+    };
+    let userInput = prompt("Enter a shelf number to check if it's prime:");
+
+    if (userInput !== null) {
+      document.write("<p>Shelf Number: " + userInput + "</p>");
+      document.write("<p>Is Prime? " + isPrimeShelf(userInput) + "</p>");
+    } else {
+      document.write("<p>No input provided!</p>");
+    }
+  </script>
+</body>
+</html>

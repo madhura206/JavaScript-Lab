@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reverse ISBN</title>
+</head>
+<body>
+  <h2>Reverse ISBN Number</h2>
+
+  <script>
+    function reverseISBN(isbn) {
+      try {
+        // Validate input
+        if (isNaN(isbn) || isbn === null || isbn === "") {
+          throw new Error("Invalid ISBN! Please enter a valid number.");
+        }
+
+        isbn = Number(isbn);
+        const isNegative = isbn < 0;
+
+        let reversed = Math.abs(isbn).toString().split("").reverse().join("");
+        reversed = Number(reversed);
+
+        return isNegative ? -reversed : reversed;
+      } catch (error) {
+        return error.message;
+      }
+    }
+
+    let userInput = prompt("Enter an ISBN number (can be positive or negative):");
+
+    document.write("<p>Reversed ISBN: " + reverseISBN(userInput) + "</p>");
+  </script>
+</body>
+</html>

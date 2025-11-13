@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Palindrome Book ID Check</title>
+</head>
+<body>
+  <h2>Check if Book ID is a Palindrome</h2>
+
+  <script>
+    function isBookIdPalindrome(id) {
+      try {
+        if (isNaN(id) || id === null || id === "") {
+          throw new Error("Invalid Book ID! Please enter a valid number.");
+        }
+
+        id = id.toString();
+        let reversed = id.split("").reverse().join("");
+        return id === reversed;
+      } catch (error) {
+        return error.message;
+      }
+    }
+
+    let userInput = prompt("Enter a Book ID to check if it's a palindrome:");
+
+    document.write("<p>Book ID: " + userInput + "</p>");
+    document.write("<p>Is Palindrome? " + isBookIdPalindrome(userInput) + "</p>");
+  </script>
+</body>
+</html>

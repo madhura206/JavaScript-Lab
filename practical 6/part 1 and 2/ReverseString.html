@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reverse a String</title>
+</head>
+<body>
+  <h2>Task 2: Reverse a String</h2>
+
+  <p><strong>Reversed String:</strong> <span id="result"></span></p>
+
+  <script>
+    let str = prompt("Enter a string:");
+    let reversed = str.split("").reverse().join("");
+    document.getElementById("result").innerText = reversed;
+  </script>
+</body>
+</html>

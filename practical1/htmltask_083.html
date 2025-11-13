@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flowers</title>
+  <style>
+    .box {
+      width: 250px;
+      padding: 10px;
+      border: 4px solid blue;
+      margin: 20px;
+      background-color: #ffffcc;
+      transition: all 0.5s ease;
+      text-align: center;
+      font-family: Sans-Serif;
+    }
+
+    #controls {
+      margin: 10px;
+    }
+
+    body {
+      font-family:"Brush Script MT", cursive;
+      background-image: url('https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?cs=srgb&dl=pexels-suissounet-2101187.jpg&fm=jpg');
+      background-size: cover;         
+      background-position: center;    
+      background-repeat: no-repeat;   
+      height: 100vh;                  
+    }
+
+    .box img {
+      width: 261px;
+      margin: -6px;
+      display: block;
+    }
+    h2 {
+      font-size: 60px;  /* Increased size */
+      
+    }
+  </style>
+</head>
+<body>
+
+  <center><h2>Flowers</h2></center>
+
+  <center><div class="box" id="myBox">
+    Bougainvillea
+  </div></center>
+
+  <center><div id="controls">
+    <button onclick="changeBox()">Show Image</button>
+    <button onclick="resetBox()">Reset</button>
+  </div></center>
+
+  <script>
+    function changeBox() {
+      const box = document.getElementById("myBox");
+      box.style.padding = "30px";
+      box.style.border = "8px violet";
+      box.style.margin = "50px";
+
+      // Add image + text
+      box.innerHTML = `
+        <img src="https://budsnblush.com/cdn/shop/files/bluebougainville.jpg?v=1713427148" alt="Bougainvillea">
+      `;
+    }
+
+    function resetBox() {
+      const box = document.getElementById("myBox");
+      box.style.padding = "10px";
+      box.style.border = "4px solid blue";
+      box.style.margin = "20px";
+      box.innerHTML = "Bougainvillea";
+    }
+  </script>
+
+</body>
+</html>

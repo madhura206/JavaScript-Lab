@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Library Ticket ID</title>
+</head>
+<body>
+  <h2>Library Ticket Generator</h2>
+  <script>
+   
+    const bookFactorial = function(num) {
+      let result = 1;
+      for (let i = 1; i <= num; i++) {
+        result *= i;
+      }
+      return result;
+    };
+
+    let num = parseInt(prompt("Enter a number to generate Library Ticket ID (factorial):"));
+    document.write("<p>Generated Ticket ID (Factorial of " + num + ") is: " + bookFactorial(num) + "</p>");
+  </script>
+</body>
+</html>

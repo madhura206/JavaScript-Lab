@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: white;
+    }
+    .box {
+      background: white;
+      padding: 15px;
+      margin: 15px auto;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .report {
+      background: #eef;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .status-pass {
+      color: green;
+      font-weight: bold;
+    }
+    .status-fail {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 Student Report Dashboard</h1>
+  <div id="output"></div>
+
+  <script>
+
+    const students = [
+      { id: 1, name: "Monalika", marks: 85 },
+      { id: 2, name: "Reyon", marks: 45 },
+      { id: 3, name: "Manas", marks: 72 },
+      { id: 4, name: "Madhura", marks: 95 }
+    ];
+
+    const output = document.getElementById("output");
+
+    function print(message) {
+      const div = document.createElement("div");
+      div.className = "box";
+      div.innerHTML = message;
+      output.appendChild(div);
+    }
+
+    const names = students.map(s => s.name);
+    print("<strong>All Student Names:</strong> " + names.join(", "));
+
+    const passed = students.filter(s => s.marks > 50);
+    print("<strong>Students with Marks > 50:</strong> " + passed.map(s => s.name).join(", "));
+
+    const totalMarks = students.reduce((sum, s) => sum + s.marks, 0);
+    const avgMarks = (totalMarks / students.length).toFixed(2);
+    print("<strong>Average Marks:</strong> " + avgMarks);
+
+    const reportBox = document.createElement("div");
+    reportBox.className = "box";
+    reportBox.innerHTML = "<h3>📑 Report Cards</h3>";
+    students.forEach(s => {
+      const card = document.createElement("div");
+      card.className = "report";
+      card.innerHTML = `
+        <strong>ID:</strong> ${s.id}<br>
+        <strong>Name:</strong> ${s.name}<br>
+        <strong>Marks:</strong> ${s.marks}<br>
+        <strong>Status:</strong> <span class="${s.marks >= 50 ? 'status-pass' : 'status-fail'}">
+          ${s.marks >= 50 ? "Pass ✅" : "Fail ❌"}
+        </span>
+      `;
+      reportBox.appendChild(card);
+    });
+    output.appendChild(reportBox);
+  </script>
+</body>
+</html>

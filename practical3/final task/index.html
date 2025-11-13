@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grading</title>
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex; 
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      
+      background:
+        url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+    }
+    
+    .container {
+      
+      display: flex;
+      justify-content: center;
+      
+      padding: 20px;
+      gap: 20px;
+    }
+
+    h1 {
+      text-align: center;
+  padding: 20px;
+  background-color: #0077cc;
+  color: white;
+
+  margin: 0;
+      
+    }
+
+    .student-form {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      width: 300px;
+    }
+
+    .result-card {
+      margin-top: 15px;
+      padding: 10px;
+      background: #eef;
+      border-radius: 8px;
+      transition: transform 0.5s ease;
+    }
+
+    .highlight {
+      box-shadow: 0 0 30px 8px #2ecc40, 0 8px 24px rgba(46,204,64,0.3);
+      border: 2px solid #2ecc40;
+      transform: scale(1.07) perspective(400px) rotateX(2deg);
+      transition: box-shadow 0.3s, border 0.3s, transform 0.3s;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .pulse {
+      animation: pulse 0.5s;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #0077cc;
+      color: white;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Grading Dashboard</h1>
+  <div class="container" id="formContainer"></div>
+
+  <footer>
+    Developed by Madhura</span>
+  </footer>
+
+  <script>
+    const subjects = ["Maths", "Science", "English", "History", "CS"];
+    const students = [
+      { name: "Monalika Kubde", roll: 101 },
+      { name: "Reyon Bose", roll: 102 },
+      { name: "Manas Pinjarkar", roll: 103 },
+    ];
+
+    function createDropdown(name) {
+      const select = document.createElement("select");
+      
+      subjects.forEach(subject => {
+        const marks = Math.floor(Math.random() * 101); 
+        const opt = document.createElement("option");
+        opt.value = marks;
+        opt.textContent = `${subject} (${marks})`;
+        select.appendChild(opt);
+      });
+      return select;
+    }
+
+    function getGrade(avg) {
+      if (avg >= 90) return "A";
+      else if (avg >= 75) return "B";
+      else if (avg >= 50) return "C";
+      else return "F"; 
+    }
+
+    function getRemark(avg) {
+      switch (true) {
+        case (avg >= 90): return "Excellent";
+        case (avg >= 75): return "Good";
+        case (avg >= 50): return "Needs Improvement";
+        default: return "Fail";
+      }
+    }
+
+    let highest = 0;
+
+    students.forEach((student, idx) => {
+      const form = document.createElement("div");
+      form.className = "student-form";
+      form.innerHTML = `
+        <label>Name: <input type="text" value="${student.name}" required readonly></label>
+        <label>Roll Number: <input type="number" value="${student.roll}" required readonly></label>
+        <label>
+          Subject 1 (Slider): 
+          <input type="range" min="0" max="100" value="0" class="sub1">
+          <span class="slider-value">0</span>
+        </label>
+        <label>Subject 2 (Manual): <input type="number" min="0" max="100" class="sub2" value=""></label>
+        <label>Subject 3 (Dropdown):</label>
+      `;
+      const dropdown = createDropdown(`sub3`);
+      form.appendChild(dropdown);
+      
+      const btn = document.createElement("button");
+      btn.textContent = "Submit";
+      const result = document.createElement("div");
+      result.className = "result-card";
+      form.appendChild(btn);
+      form.appendChild(result);
+      document.getElementById("formContainer").appendChild(form);
+
+      const slider = form.querySelector('.sub1');
+      const sliderValue = form.querySelector('.slider-value');
+      slider.addEventListener('input', () => {
+        sliderValue.textContent = slider.value;
+      });
+
+      btn.addEventListener("click", () => {
+        const s1 = parseInt(form.querySelector(".sub1").value);
+        const s2 = parseInt(form.querySelector(".sub2").value);
+        const s3 = parseInt(dropdown.value);
+        if ([s1, s2, s3].some(m => m < 0 || m > 100 || isNaN(m))) {
+          result.innerHTML = "<strong>Enter valid marks (0–100)</strong>";
+          return;
+        }
+        const avg = Math.round((s1 + s2 + s3) / 3);
+        const grade = getGrade(avg);
+        const remark = getRemark(avg);
+
+        result.innerHTML = `
+          <strong>Average:</strong> ${avg}<br>
+          <strong>Grade:</strong> ${grade}<br>
+          <strong>Remark:</strong> ${remark}
+        `;
+
+        result.classList.add("pulse");
+
+        
+        document.querySelectorAll(".result-card").forEach(card => {
+          card.classList.remove("highlight");
+        });
+
+     
+        let highestAvg = -1;
+        let highestCard = null;
+        document.querySelectorAll(".student-form").forEach(formEl => {
+          const card = formEl.querySelector(".result-card");
+          const match = card.innerHTML.match(/<strong>Average:<\/strong>\s*(\d+)/);
+          if (match) {
+            const cardAvg = parseInt(match[1]);
+            if (cardAvg > highestAvg) {
+              highestAvg = cardAvg;
+              highestCard = card;
+            }
+          }
+        });
+        if (highestCard) highestCard.classList.add("highlight");
+      });
+    });
+  
+  </script>
+</body>
+</html>

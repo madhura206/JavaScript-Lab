@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secret Shelf - Closure with Password</title>
+</head>
+<body>
+  <h2>Secret Shelf (Closure with Password)</h2>
+
+  <script>
+    function secretShelf(password) {
+      const note = "(Rare Book Note)"; 
+      return function(enteredPassword) {
+        if (enteredPassword === password) {
+          return note;
+        } else {
+          return "Access Denied";
+        }
+      };
+    }
+    const shelf = secretShelf("abcd123");  
+    let userInput = prompt("Enter password to access the secret shelf:");
+    document.write("<p>Result: " + shelf(userInput) + "</p>");
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Find Longest String</title>
+</head>
+<body>
+
+<h2>Longest String Finder</h2>
+
+<script>
+  let input = prompt("Enter words separated by commas:");
+
+  let words = input.split(",");
+
+  let longest = words[0];
+
+  for (let i = 1; i < words.length; i++) {
+    if (words[i].length > longest.length) {
+      longest = words[i];
+    }
+  }
+
+  document.write("Longest word is: <strong>" + longest.trim() + "</strong>");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Replace Multiple Spaces</title>
+  <style>
+    #result { white-space: pre; }
+  </style>
+</head>
+<body>
+  <h2>Task 4: Replace Multiple Spaces with Single Space</h2>
+
+  <p id="result"></p>
+
+  <script>
+    let text = prompt("Enter a string with multiple spaces:");
+    let cleaned = text.replace(/\s+/g, " ");
+    document.getElementById("result").innerText = "Input: " + text + "\nOutput: " + cleaned;
+  </script>
+</body>
+</html>

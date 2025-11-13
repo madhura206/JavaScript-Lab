@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>positive/negative/zero</title>
+</head>
+<body>
+    <style>
+        * {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: lightcoral;
+        }
+    </style>
+    <h2>Check if a Number is Positive, Negative, or Zero</h2>
+    
+    <script>
+        let number = parseInt(prompt("Enter a number:"));
+
+        document.write("<p>You entered: " + number + "</p>");
+
+        if (number > 0) {
+            document.write("<h3>" + number + " is positive.</h3>");
+        } else if (number < 0) {
+            document.write("<h3>" + number + " is negative.</h3>");
+        } else {
+            document.write("<h3>The number is zero.</h3>");
+        }
+    </script>
+    
+</body>
+</html>

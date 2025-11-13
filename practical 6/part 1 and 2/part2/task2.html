@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Extract Dates</title>
+</head>
+<body>
+  <h2>Task 2: Extract Dates from Text</h2>
+
+  <p id="result"></p>
+
+  <script>
+    let text = prompt("Enter a sentence with dates (dd/mm/yyyy):");
+    let dateRegex = /\d{2}\/\d{2}\/\d{4}/g;
+    let dates = text.match(dateRegex);
+    document.getElementById("result").innerText = "Input: " + text + "\nExtracted Dates: " + 
+    (dates ? JSON.stringify(dates) : "No dates found");
+  </script>
+</body>
+</html>

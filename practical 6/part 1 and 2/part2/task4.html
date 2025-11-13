@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Find Duplicate Words</title>
+</head>
+<body>
+  <h2>Task 4: Find Duplicate Words</h2>
+
+  <p id="result"></p>
+
+  <script>
+    let text = prompt("Enter a sentence:");
+    let dupRegex = /\b(\w+)\s+\1\b/g;
+    let matches = [];
+    let match;
+    while ((match = dupRegex.exec(text)) !== null) {
+      matches.push(match[1]);
+    }
+    document.getElementById("result").innerText = "Input: " + text + "\nDuplicates: " + 
+    (matches.length ? JSON.stringify(matches) : "No duplicates found");
+  </script>
+</body>
+</html>

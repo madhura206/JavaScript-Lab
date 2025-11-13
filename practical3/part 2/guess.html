@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guessing Game</title>
+</head>
+<body>
+
+<h2>Guess the Number Game (1 to 100)</h2>
+<p>Open the prompt and try to guess the number!</p>
+
+<script>
+ 
+  const secretNumber = Math.floor(Math.random() * 100) + 1;
+  let guess;
+
+  do {
+    guess = prompt("Guess a number between 1 and 100:");
+
+    if (guess === null) {
+      alert("Game cancelled.");
+      break;
+    }
+
+    guess = parseInt(guess);
+
+    if (isNaN(guess)) {
+      alert("Please enter a valid number.");
+    } else if (guess < secretNumber) {
+      alert("Too low! Try again.");
+    } else if (guess > secretNumber) {
+      alert("Too high! Try again.");
+    } else {
+      alert("🎉 Correct! The number was " + secretNumber);
+    }
+
+  } while (guess !== secretNumber);
+</script>
+
+</body>
+</html>

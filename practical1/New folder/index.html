@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome - SIT Nagpur CSE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body onload="showWelcomeMessage()">
+  <nav class="navbar">
+    <div class="navbar-content">
+      <span class="navbar-title">SIT Nagpur - CSE Department</span>
+      <a href="index.html" class="home-link">🏠 Home</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>SIT Nagpur</h1>
+    <h2>Department of Computer Science & Engineering</h2>
+    <p id="welcome-message"></p>
+    <a href="student.html" class="btn">Enter Student Portal</a>
+  </div>
+
+
+
+  <script>
+    function showWelcomeMessage() {
+      const message = document.getElementById("welcome-message");
+      message.textContent = "Welcome to the Future of Technology – Learn, Code, Innovate!";
+    }
+  </script>
+
+</body>
+</html>

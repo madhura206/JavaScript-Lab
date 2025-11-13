@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #e1bee7);
+  color: #333;
+  min-height: 100vh;
+  animation: fadeIn 1s ease-in;
+}
+
+header nav {
+  background-color: #4a148c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.logo img{
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 150px;
+  height: 60px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #ffccbc;
+}
+
+main {
+  padding: 3rem;
+  text-align: center;
+}
+
+#searchBar {
+  padding: 0.7rem;
+  width: 300px;
+  font-size: 16px;
+  border: 2px solid #4a148c;
+  border-radius: 5px;
+  margin: 1rem 0;
+}
+
+#results {
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Factorial Calculator</title>
+  <style>
+    *{
+        font-family: Arial, sans-serif;
+        color: #f8f4f4;
+        text-align: center;
+        background-color: #140101;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Factorial Calculator (Type "exit" to stop)</h2>
+
+<script>
+  let input;
+
+  while (true) {
+    input = prompt("Enter a number to find its factorial (or type 'exit' to quit):");
+
+    if (input === "exit") {
+      document.write("You exited the program.");
+      break;
+    }
+
+    let number = parseInt(input);
+
+    if (isNaN(number) || number < 0) {
+      alert("Please enter a non-negative integer.");
+      continue;
+    }
+
+    let factorial = 1;
+    let i = 1;
+
+    while (i <= number) {
+      factorial *= i;
+      i++;
+    }
+
+    alert("Factorial of " + number + " is " + factorial);
+  }
+</script>
+
+</body>
+</html>

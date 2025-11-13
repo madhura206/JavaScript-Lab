@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Check Library Note</title>
+</head>
+<body>
+  <h2>Check if a Note Contains "Library"</h2>
+
+  <script>
+  
+    const checkLibraryNote = (note) => note.toLowerCase().includes("library");
+
+    let note = prompt("Enter a note to check for the word 'Library':");
+    document.write("<p>Note: " + note + "</p>");
+    document.write("<p>Contains 'Library'? " + checkLibraryNote(note) + "</p>");
+  </script>
+</body>
+</html>

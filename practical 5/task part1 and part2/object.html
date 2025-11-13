@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Student Reports — Map / Filter / Reduce / forEach</title>
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --muted: #98a8c6;
+        --accent: #2dd4bf;
+        --accent-2: #60a5fa;
+        --glass: rgba(255, 255, 255, 0.04);
+        --success: #16a34a;
+        --danger: #ef4444;
+        font-family: Inter, Roboto, "Segoe UI", Arial, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: linear-gradient(180deg, #071126 0%, #071830 60%);
+        color: #e6eef8;
+      }
+      .page {
+        max-width: 1100px;
+        margin: 28px auto;
+        padding: 20px;
+      }
+
+      header {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0;
+      }
+      p.lead {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 18px;
+      }
+
+      /* left panel */
+      .panel {
+        background: linear-gradient(180deg, var(--card), rgba(11, 18, 32, 0.9));
+        border-radius: 12px;
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+      }
+      .panel h2 {
+        margin: 0 0 10px 0;
+        font-size: 14px;
+        color: var(--accent-2);
+      }
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .pill {
+        background: var(--glass);
+        padding: 8px 10px;
+        border-radius: 10px;
+        font-size: 13px;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .badge {
+        font-weight: 600;
+        color: #0b1220;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+      }
+
+      /* right area: cards container */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 12px;
+      }
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(0, 0, 0, 0.15)
+        );
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        min-height: 120px;
+        position: relative;
+      }
+      .card .name {
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .card .meta {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      .score {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 8px 10px;
+        border-radius: 8px;
+        font-weight: 700;
+      }
+      .pass {
+        color: var(--success);
+      }
+      .fail {
+        color: var(--danger);
+      }
+
+      .topper {
+        box-shadow: 0 12px 30px rgba(45, 212, 191, 0.08),
+          0 6px 18px rgba(96, 165, 250, 0.04);
+        border: 1px solid rgba(45, 212, 191, 0.14);
+        transform: translateY(-4px);
+      }
+
+      /* controls */
+      .controls {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      button {
+        background: linear-gradient(90deg, var(--accent-2), var(--accent));
+        border: none;
+        color: #061125;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      #button.ghost.bounce {
+        animation: bounce 0.4s ease;
+      }
+      button.ghost {
+        background: transparent;
+        border: 1px dashed rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+        padding: 8px 10px;
+      }
+      small {
+        color: var(--muted);
+      }
+
+      footer {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+      }
+      @media (max-width: 880px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .cards {
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        }
+      }
+
+      @keyframes bounce {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.15); }
+  60%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+    </style>
+  </head>
+  <body>
+    <div class="page" role="main">
+      <header>
+        <div>
+          <h1>Student Reports — map / filter / reduce / forEach</h1>
+          <p class="lead">
+            Demo: extract names (map), filter passing students, compute average
+            (reduce) and render report cards (forEach).
+          </p>
+        </div>
+        <div style="text-align: right">
+          <small>Built with modern ES6+</small>
+        </div>
+      </header>
+
+      <section class="grid" aria-label="Main dashboard">
+        <!-- left column: summaries -->
+        <aside class="panel" aria-labelledby="summaryTitle">
+          <h2 id="summaryTitle">Summary</h2>
+
+          <div style="margin-bottom: 10px">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 8px;
+              "
+            >
+              <strong>All Student Names</strong>
+              <button id="refreshNames" class="ghost" title="Refresh">
+                Refresh
+              </button>
+            </div>
+            <div id="namesList" class="list" aria-live="polite"></div>
+          </div>
+
+          <div style="margin-top: 10px">
+            <strong>Passed Students (marks &gt; 50)</strong>
+            <div id="passedList" class="list" style="margin-top: 8px"></div>
+          </div>
+
+          <div
+            style="
+              margin-top: 12px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <div>
+              <strong>Average Marks</strong>
+              <div
+                id="avgVal"
+                style="font-size: 18px; margin-top: 6px; color: var(--accent)"
+              ></div>
+            </div>
+            <div style="text-align: right">
+              <small id="statsCount"></small>
+              <div style="height: 20px"></div>
+            </div>
+          </div>
+
+          <div class="controls" style="margin-top: 14px">
+            <button id="highlightTopper">Highlight Topper</button>
+            <button id="shuffle" class="ghost">Shuffle Marks</button>
+          </div>
+        </aside>
+
+        <!-- right column: report cards -->
+        <main>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+            "
+          >
+            <div>
+              <strong>Report Cards</strong>
+              <div style="font-size: 12px; color: var(--muted)">
+                Rendered from forEach()
+              </div>
+            </div>
+            <div><small id="lastUpdated"></small></div>
+          </div>
+
+          <section id="cards" class="cards" aria-live="polite"></section>
+        </main>
+      </section>
+
+      <footer>
+        <small
+          >Example by You — demonstrates map, filter, reduce, forEach in a real
+          UI.</small
+        >
+      </footer>
+    </div>
+
+    <script>
+      // ======== data ========
+      const students = [
+        { id: 1, name: "Monalika", marks: 85 },
+        { id: 2, name: "Reyon", marks: 45 },
+        { id: 3, name: "Manas", marks: 72 },
+        { id: 4, name: "Madhura", marks: 95 },
+      ];
+
+      // helpers (pure functions)
+      const getNames = (arr) => arr.map((s) => s.name); // map()
+      const passedStudents = (arr) => arr.filter((s) => s.marks > 50); // filter()
+      const averageMarks = (arr) => {
+        if (!arr.length) return 0;
+        const total = arr.reduce((acc, s) => acc + s.marks, 0); // reduce()
+        return +(total / arr.length).toFixed(2);
+      };
+
+      // DOM refs
+      const namesList = document.getElementById("namesList");
+      const passedList = document.getElementById("passedList");
+      const avgVal = document.getElementById("avgVal");
+      const statsCount = document.getElementById("statsCount");
+      const cards = document.getElementById("cards");
+      const lastUpdated = document.getElementById("lastUpdated");
+
+      // render functions
+      const renderNames = (arr) => {
+        namesList.innerHTML = "";
+        const names = getNames(arr); // map
+        names.forEach((n) => {
+          const el = document.createElement("div");
+          el.className = "pill";
+          el.textContent = n;
+          namesList.appendChild(el);
+        });
+        statsCount.textContent = `${arr.length} students`;
+      };
+
+      const renderPassed = (arr) => {
+        passedList.innerHTML = "";
+        const passed = passedStudents(arr); // filter
+        if (!passed.length) {
+          passedList.innerHTML = `<div class="pill" style="color:var(--muted)">No students passed</div>`;
+          return;
+        }
+        passed.forEach((s) => {
+          const el = document.createElement("div");
+          el.className = "pill";
+          el.innerHTML = `<span>${s.name}</span><span class="badge">${s.marks}</span>`;
+          passedList.appendChild(el);
+        });
+      };
+
+      const renderAvg = (arr) => {
+        const avg = averageMarks(arr); // reduce
+        avgVal.textContent = avg;
+        lastUpdated.textContent = `Updated: ${new Date().toLocaleTimeString()}`;
+      };
+
+      const renderCards = (arr) => {
+        cards.innerHTML = "";
+        // We'll find topper first (reduce)
+        const topper = arr.reduce(
+          (best, s) => (s.marks > (best?.marks ?? -1) ? s : best),
+          null
+        );
+
+        // forEach to render each card
+        arr.forEach((s) => {
+          const div = document.createElement("article");
+          div.className = "card";
+          if (topper && s.id === topper.id) div.classList.add("topper");
+          div.innerHTML = `
+          <div class="name">${s.name}</div>
+          <div class="meta">ID: ${s.id} • ${
+            s.marks >= 50
+              ? '<span class="pass">Pass</span>'
+              : '<span class="fail">Fail</span>'
+          }</div>
+          <div class="score">${s.marks}</div>
+          <div style="margin-top:10px;font-size:13px;color:var(--muted)">
+            ${gradeText(s.marks)}
+          </div>
+        `;
+          cards.appendChild(div);
+        });
+      };
+
+      // small utility: grade text
+      const gradeText = (m) => {
+        if (m >= 90) return "<strong>A</strong> — Excellent";
+        if (m >= 75) return "<strong>B</strong> — Good";
+        if (m >= 50) return "<strong>C</strong> — Needs Improvement";
+        return "<strong>F</strong> — Fail";
+      };
+
+      // full render
+      const renderAll = (arr) => {
+        renderNames(arr);
+        renderPassed(arr);
+        renderAvg(arr);
+        renderCards(arr);
+      };
+
+      // initial render
+      renderAll(students);
+
+      // controls
+      document
+        .getElementById("highlightTopper")
+        .addEventListener("click", () => {
+          // re-render ensures topper is applied visually
+          renderCards(students);
+          // scroll topper into view
+          const topperEl = document.querySelector(".card.topper");
+          if (topperEl)
+            topperEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+
+      // shuffle marks randomly (demonstrates reactivity)
+      document.getElementById("shuffle").addEventListener("click", () => {
+        // mutate marks (for demo only) - use map/cloning if you prefer immutability
+        students.forEach((s) => (s.marks = Math.floor(Math.random() * 101)));
+        renderAll(students);
+
+        // Bounce animation
+        const btn = document.getElementById("shuffle");
+        btn.classList.remove("bounce"); // reset if already bouncing
+        void btn.offsetWidth; // force reflow
+        btn.classList.add("bounce");
+      });
+
+      document.getElementById("refreshNames").addEventListener("click", () => {
+        renderNames(students);
+      });
+
+      // Expose operations in console for exploration
+      window.demo = {
+        students,
+        getNames,
+        passedStudents,
+        averageMarks,
+      };
+      // Tip log
+      console.log(
+        "Demo API available as window.demo (students, getNames, passedStudents, averageMarks)"
+      );
+    </script>
+  </body>
+</html>

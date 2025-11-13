@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+  <h3>Select an image to preview:</h3>
+  <input type="file" id="imageInput" accept="image/*" onchange="showPreview()"><br><br>
+
+  <img id="preview" width="200" style="display: none; border: 1px solid #000;">
+
+  <script>
+    function showPreview() {
+      let file = document.getElementById("imageInput").files[0];
+      if (file) {
+        document.getElementById("preview").src = URL.createObjectURL(file);
+        document.getElementById("preview").style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>

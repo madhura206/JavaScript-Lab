@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Light Simulator</title>
+</head>
+<body>
+    <style>
+        * {
+            text-align: center;
+            background: #000;
+            color: white;
+        }
+    </style>
+    <script>
+        traffic_light = prompt("Enter the traffic light color (red, yellow, green):").toLowerCase();
+        let message;
+        document.write("<p>You entered: " + traffic_light + "</p>");
+
+        switch (traffic_light.toLowerCase()) {
+            case "red":
+                message = "Stop! The light is red.";
+                break;
+            case "yellow":
+                message = "Caution! The light is yellow.";
+                break;
+            case "green":
+                message = "Go! The light is green.";
+                break;
+            default:
+                message = "Invalid color entered.";
+        }
+        document.write("<h3>" + message + "</h3>");
+
+    </script>
+    
+</body>
+</html>

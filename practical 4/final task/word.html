@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Palindrome Check</title>
+</head>
+<body>
+  <h2>Check if Book Title is a Palindrome</h2>
+
+  <script>
+    function isWordPalindrome(title) {
+      try {
+        if (!title || title.trim() === "") {
+          throw new Error("Invalid input! Please enter a valid book title.");
+        }
+
+        let cleanTitle = title.toLowerCase().replace(/\s+/g, "");
+
+        let reversed = cleanTitle.split("").reverse().join("");
+
+        return cleanTitle === reversed;
+      } catch (error) {
+        return error.message;
+      }
+    }
+
+    let userInput = prompt("Enter a book title to check if it's a palindrome:");
+
+    if (userInput !== null) {
+      document.write("<p>Book Title: " + userInput + "</p>");
+      document.write("<p>Is Palindrome? " + isWordPalindrome(userInput) + "</p>");
+    } else {
+      document.write("<p>No input provided!</p>");
+    }
+  </script>
+</body>
+</html>

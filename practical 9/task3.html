@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Auto-Save Contact Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 400px;
+    margin: 50px auto;
+    text-align: center;
+  }
+  input, textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #0078d7;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #005fa3;
+  }
+</style>
+</head>
+<body>
+  <h2>Contact Form (Session Auto-Save)</h2>
+  
+  <form id="contactForm">
+    <input type="text" id="name" placeholder="Enter your name"><br>
+    <input type="email" id="email" placeholder="Enter your email"><br>
+    <textarea id="message" placeholder="Enter your message"></textarea><br>
+    <button type="reset">Clear</button>
+  </form>
+
+  <script>
+   
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const messageInput = document.getElementById("message");
+
+    // Restore saved values on page load (if session still active)
+    window.addEventListener("load", () => {
+      nameInput.value = sessionStorage.getItem("name") || "";
+      emailInput.value = sessionStorage.getItem("email") || "";
+      messageInput.value = sessionStorage.getItem("message") || "";
+    });
+
+    // Save values as user types
+    nameInput.addEventListener("input", () => {
+      sessionStorage.setItem("name", nameInput.value);
+    });
+
+    emailInput.addEventListener("input", () => {
+      sessionStorage.setItem("email", emailInput.value);
+    });
+k
+    messageInput.addEventListener("input", () => {
+      sessionStorage.setItem("message", messageInput.value);
+    });
+
+    // Clear sessionStorage when form is clear
+    document.getElementById("contactForm").addEventListener("reset", () => {
+      sessionStorage.removeItem("name");
+      sessionStorage.removeItem("email");
+      sessionStorage.removeItem("message");
+    });
+  </script>
+</body>
+</html>

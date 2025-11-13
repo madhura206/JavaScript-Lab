@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Even Numbers from User Input</title>
+</head>
+<body>
+    <style>
+    *{
+        font-family: Arial, sans-serif;
+        color: #f8f4f4;
+        text-align: center;
+        background-color: #140101;
+    }
+    </style>
+
+<h2>Even Numbers from Your Input:</h2>
+
+<script>
+
+  let input = prompt("Enter numbers separated by commas (e.g. 2,5,8,11,14):");
+
+  let numbers = input.split(",").map(Number);
+
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[i] % 2 === 0) {
+      document.write(numbers[i] + "<br>");
+    }
+  }
+</script>
+
+</body>
+</html>

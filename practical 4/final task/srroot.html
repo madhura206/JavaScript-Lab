@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Square Root with Error Handling</title>
+</head>
+<body>
+  <h2>Square Root of Pages Read</h2>
+
+  <script>
+    function sqrtPages(pages) {
+      try {
+   
+        if (isNaN(pages) || pages === null || pages === "") {
+          throw new Error("Invalid input! Please enter a number.");
+        }
+
+        pages = Number(pages);
+
+        if (pages < 0) {
+          throw new Error("Error: Negative numbers not allowed");
+        }
+
+        return Math.sqrt(pages);
+      } catch (error) {
+        return error.message;
+      }
+    }
+    let userInput = prompt("Enter total pages read:");
+
+    if (userInput !== null) {
+      document.write("<p>Total Pages: " + userInput + "</p>");
+      document.write("<p>Square Root: " + sqrtPages(userInput) + "</p>");
+    } else {
+      document.write("<p>No input provided!</p>");
+    }
+  </script>
+</body>
+</html>

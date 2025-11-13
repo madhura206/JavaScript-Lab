@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Extract Hashtags</title>
+</head>
+<body>
+  <h2>Task 5: Extract Hashtags from a Tweet</h2>
+
+  <p id="result"></p>
+
+  <script>
+    let tweet = prompt("Enter a tweet:");
+    let hashtags = tweet.match(/#[A-Za-z0-9_]+/g);
+    document.getElementById("result").innerText = "Input: " + tweet + "\nHashtags: " + 
+    (hashtags ? JSON.stringify(hashtags) : "No hashtags found");
+  </script>
+</body>
+</html>

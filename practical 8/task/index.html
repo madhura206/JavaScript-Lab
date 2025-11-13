@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gym Admission Form</title>
+    <style>
+    
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+      }
+
+   
+      .form-container {
+        background: rgba(0, 0, 0, 0.75);
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 10px;
+        color: #fff;
+        box-shadow: 0 0 15px #000;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #ffcc00;
+      }
+
+      /* Form Fields */
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+      }
+
+      .error {
+        color: #ff4d4d;
+        font-size: 0.9em;
+        margin-top: 5px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 10px;
+        background: #ffcc00;
+        color: #000;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+      }
+
+      .submit-btn:hover {
+        background: #e6b800;
+      }
+      .gender-group,
+      .hobby-group {
+        display: flex;
+        gap: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Gym Admission Form</h2>
+      <form id="gymForm" onsubmit="return validateForm()">
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your full name"
+            onblur="validateName()"
+            oninput="liveName()"
+          />
+          <div id="nameError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            onblur="validateEmail()"
+            oninput="liveEmail()"
+          />
+          <div id="emailError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="age">Age (18-60) *</label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            placeholder="Enter your age"
+            onblur="validateAge()"
+            oninput="liveAge()"
+          />
+          <div id="ageError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password *</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+            onblur="validatePassword()"
+            oninput="livePassword()"
+          />
+          <div id="passwordError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password *</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Confirm password"
+            onblur="validateConfirmPassword()"
+          />
+          <div id="confirmPasswordError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Gender *</label>
+          <div class="gender-group">
+            <label
+              ><input type="radio" name="gender" value="Male" /> Male</label
+            >
+            <label
+              ><input type="radio" name="gender" value="Female" /> Female</label
+            >
+            <label
+              ><input type="radio" name="gender" value="Other" /> Other</label
+            >
+          </div>
+          <div id="genderError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City *</label>
+          <select id="city" name="city">
+            <option value="">Select city</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Nagpur">Nagpur</option>
+          </select>
+          <div id="cityError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="dob">Date of Birth *</label>
+          <input type="date" id="dob" name="dob" onblur="validateDOB()" />
+          <div id="dobError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="resume">Upload Resume (PDF, Max 2MB)</label>
+          <input
+            type="file"
+            id="resume"
+            name="resume"
+            accept=".pdf"
+            onchange="validateFile()"
+          />
+          <div id="fileError" class="error"></div>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+
+    <script>
+ 
+  function setHighlight(element, isValid) {
+    if (isValid) {
+      element.style.border = "2px solid green";
+      element.style.boxShadow = "0 0 5px green";
+    } else {
+      element.style.border = "2px solid red";
+      element.style.boxShadow = "0 0 5px red";
+    }
+  }
+
+  function liveName() {
+    const input = document.getElementById("name");
+    const isValid = input.value.trim().length >= 3;
+    document.getElementById("nameError").innerText = isValid ? "" : "Name must be at least 3 characters";
+    setHighlight(input, isValid);
+  }
+
+  function liveEmail() {
+    const input = document.getElementById("email");
+    const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    const isValid = pattern.test(input.value.trim());
+    document.getElementById("emailError").innerText = isValid ? "" : "Invalid email format";
+    setHighlight(input, isValid);
+  }
+
+  function liveAge() {
+    const input = document.getElementById("age");
+    const age = Number(input.value);
+    const isValid = age >= 18 && age <= 60;
+    document.getElementById("ageError").innerText = isValid ? "" : "Age must be between 18 and 60";
+    setHighlight(input, isValid);
+  }
+
+  function livePassword() {
+    const input = document.getElementById("password");
+    const pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=]).{8,}$/;
+    const isValid = pattern.test(input.value);
+    document.getElementById("passwordError").innerText = isValid ? "" : "Weak password";
+    setHighlight(input, isValid);
+  }
+
+  function validateName() {
+    const input = document.getElementById("name");
+    const value = input.value.trim();
+    const isValid = value.length >= 3;
+    document.getElementById("nameError").innerText = value === "" ? "Name is required" : (isValid ? "" : "Name must be at least 3 characters");
+    setHighlight(input, value !== "" && isValid);
+    return value !== "" && isValid;
+  }
+
+  function validateEmail() {
+    const input = document.getElementById("email");
+    const value = input.value.trim();
+    const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    const isValid = pattern.test(value);
+    document.getElementById("emailError").innerText = value === "" ? "Email is required" : (!isValid ? "Invalid email format" : "");
+    setHighlight(input, value !== "" && isValid);
+    return value !== "" && isValid;
+  }
+
+  function validateAge() {
+    const input = document.getElementById("age");
+    const value = input.value.trim();
+    const age = Number(value);
+    const isValid = !isNaN(age) && age >= 18 && age <= 60;
+    document.getElementById("ageError").innerText = value === "" ? "Age is required" : (!isValid ? "Age must be between 18 and 60" : "");
+    setHighlight(input, value !== "" && isValid);
+    return value !== "" && isValid;
+  }
+
+  function validatePassword() {
+    const input = document.getElementById("password");
+    const value = input.value;
+    const pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=]).{8,}$/;
+    const isValid = pattern.test(value);
+    document.getElementById("passwordError").innerText = value === "" ? "Password is required" : (!isValid ? "Weak password" : "");
+    setHighlight(input, value !== "" && isValid);
+    return value !== "" && isValid;
+  }
+
+  function validateConfirmPassword() {
+    const input = document.getElementById("confirmPassword");
+    const password = document.getElementById("password").value;
+    const value = input.value;
+    const isValid = value === password && value !== "";
+    document.getElementById("confirmPasswordError").innerText = value === "" ? "Confirm password is required" : (value !== password ? "Passwords do not match" : "");
+    setHighlight(input, isValid);
+    return isValid;
+  }
+
+  function validateGender() {
+    const selected = document.querySelector('input[name="gender"]:checked');
+    const isValid = !!selected;
+    const radios = document.querySelectorAll('input[name="gender"]');
+    radios.forEach(r => setHighlight(r, isValid));
+    document.getElementById("genderError").innerText = isValid ? "" : "Please select your gender";
+    return isValid;
+  }
+
+  function validateCity() {
+    const input = document.getElementById("city");
+    const isValid = input.value !== "";
+    setHighlight(input, isValid);
+    document.getElementById("cityError").innerText = isValid ? "" : "Please select a city";
+    return isValid;
+  }
+
+  function validateDOB() {
+    const input = document.getElementById("dob");
+    const dob = new Date(input.value);
+    const today = new Date();
+    const isValid = input.value !== "" && dob <= today;
+    setHighlight(input, isValid);
+    document.getElementById("dobError").innerText = input.value === "" ? "Please enter a valid date" : (dob > today ? "Date cannot be in the future" : "");
+    return isValid;
+  }
+
+  function validateFile() {
+    const input = document.getElementById("resume");
+    const file = input.files[0];
+    let isValid = true;
+
+    if (file) {
+      if (!file.name.endsWith(".pdf")) isValid = false;
+      else if (file.size > 2 * 1024 * 1024) isValid = false;
+    }
+
+    setHighlight(input, isValid);
+    document.getElementById("fileError").innerText = file
+      ? !file.name.endsWith(".pdf")
+        ? "Only PDF allowed"
+        : file.size > 2 * 1024 * 1024
+        ? "File too large (Max 2MB)"
+        : ""
+      : "";
+    return isValid;
+  }
+
+  // Final form validation
+  function validateForm() {
+    let valid = true;
+    if (!validateName()) valid = false;
+    if (!validateEmail()) valid = false;
+    if (!validateAge()) valid = false;
+    if (!validatePassword()) valid = false;
+    if (!validateConfirmPassword()) valid = false;
+    if (!validateGender()) valid = false;
+    if (!validateCity()) valid = false;
+    if (!validateDOB()) valid = false;
+    if (!validateFile()) valid = false;
+
+    if (valid) alert("Form submitted successfully!");
+    return valid;
+  }
+</script>
+
+  </body>
+</html>

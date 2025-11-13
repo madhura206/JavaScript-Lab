@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Count</title>
+</head>
+<body>
+  <h2>Task 5: Word Count</h2>
+
+  <p id="result"></p>
+
+  <script>
+    let text = prompt("Enter a sentence:");
+    let words = text.trim().split(/\s+/); 
+    let count = words.length;
+    document.getElementById("result").innerText = "Input: " + text + "\nWord Count: " + count;
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <span class="navbar-title">SIT Nagpur - CSE Department</span>
+      <a href="index.html" class="home-link">🏠 Home</a>
+    </div>
+  </nav>
+
+</body>
+
+  <div class="container">
+    <h2>Welcome to the Student Portal</h2>
+    <div id="info-container"></div>
+
+    <div id="search-section" style="display: none; margin-top: 30px;">
+      <label for="student-search">🔍 Search Student Name:</label><br>
+      <input type="text" id="student-search" placeholder="Type a name..." oninput="filterStudents()" />
+      <ul id="student-list"></ul>
+    </div>
+  </div>
+
+  <script src="student.js"></script>
+</body>
+</html>

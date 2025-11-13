@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Library Management Console</title>
+</head>
+<body>
+  <h2>Library Management Console (Menu-Driven)</h2>
+  <script>
+    function showMenu() {
+      return prompt(
+        "Choose an option:\n" +
+        "1. Compare two books and return the thicker one\n" +
+        "2. Generate factorial-based library ticket ID\n" +
+        "3. Check if a note contains the word 'Library'\n" +
+        "4. Store and retrieve a rare book note (closure)\n" +
+        "5. Reverse an ISBN number and check if it’s a palindrome\n" +
+        "6. Check if a book title is a palindrome\n" +
+        "7. Find square root of total pages read\n" +
+        "8. Check if a shelf number is prime\n" +
+        "9. Exit"
+      );
+    }
+
+    function getThickerBook(p1, p2) {
+      if (isNaN(p1) || isNaN(p2)) return "Invalid input! Enter numbers only.";
+      return (p1 > p2) ? p1 : p2;
+    }
+
+    function bookFactorial(n) {
+      if (isNaN(n) || n < 0) return "Invalid number!";
+      let fact = 1;
+      for (let i = 1; i <= n; i++) fact *= i;
+      return fact;
+    }
+
+    function checkLibraryNote(note) {
+      if (typeof note !== "string") return "Invalid note!";
+      return note.toLowerCase().includes("library");
+    }
+
+    function secretShelf(password) {
+      let rareNote = "(Rare Book Note)";
+      return function(pass) {
+        if (pass === password) return rareNote;
+        return "Access Denied";
+      };
+    }
+
+    function reverseISBN(num) {
+      if (isNaN(num)) return "Invalid ISBN!";
+      let sign = num < 0 ? -1 : 1;
+      let rev = Number(String(Math.abs(num)).split("").reverse().join(""));
+      rev *= sign;
+      let palindrome = (Math.abs(num) === Math.abs(rev));
+      return "Reversed: " + rev + " | Palindrome? " + palindrome;
+    }
+
+    function isBookTitlePalindrome(title) {
+      if (typeof title !== "string") return "Invalid title!";
+      let clean = title.replace(/\s+/g, "").toLowerCase();
+      let reversed = clean.split("").reverse().join("");
+      return clean === reversed;
+    }
+
+    function sqrtPages(pages) {
+      if (isNaN(pages)) return "Invalid input!";
+      if (pages < 0) return "Error: Negative numbers not allowed.";
+      return Math.sqrt(pages);
+    }
+
+    function isPrimeShelf(num) {
+      if (isNaN(num) || num < 2) return false;
+      for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+      }
+      return true;
+    }
+
+    let choice;
+    do {
+      choice = showMenu();
+      if (choice === null) break;
+
+      switch (choice) {
+        case "1":
+          let p1 = Number(prompt("Enter pages of Book 1:"));
+          let p2 = Number(prompt("Enter pages of Book 2:"));
+          alert("Thicker Book Pages: " + getThickerBook(p1, p2));
+          break;
+
+        case "2":
+          let n = Number(prompt("Enter number for factorial ticket ID:"));
+          alert("Ticket ID: " + bookFactorial(n));
+          break;
+
+        case "3":
+          let note = prompt("Enter the note:");
+          alert("Contains 'Library'? " + checkLibraryNote(note));
+          break;
+
+        case "4":
+          let password = prompt("Set a password for secret shelf:");
+          let shelf = secretShelf(password);
+          let attempt = prompt("Enter password to view rare note:");
+          alert(shelf(attempt));
+          break;
+
+        case "5":
+          let isbn = Number(prompt("Enter ISBN (can be negative):"));
+          alert(reverseISBN(isbn));
+          break;
+
+        case "6":
+          let title = prompt("Enter book title:");
+          alert("Palindrome Title? " + isBookTitlePalindrome(title));
+          break;
+
+        case "7":
+          let pages = Number(prompt("Enter total pages read:"));
+          alert("Square Root: " + sqrtPages(pages));
+          break;
+
+        case "8":
+          let shelfNum = Number(prompt("Enter shelf number:"));
+          alert("Is Prime Shelf? " + isPrimeShelf(shelfNum));
+          break;
+
+        case "9":
+          alert("Exiting Library Console...");
+          break;
+
+        default:
+          alert("Invalid option! Please try again.");
+      }
+    } while (choice !== "9");
+  </script>
+</body>
+</html>
